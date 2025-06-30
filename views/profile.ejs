@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= user.username %>'s Profile</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .profile-picture{
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-picture img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #4c6ef5;
+    }
+
+    img :hover{
+      background-color: #666;
+      cursor: pointer;
+    }
+
+    .profile-header h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    .profile-info p {
+      margin: 6px 0;
+      color: #555;
+    }
+
+    .stats {
+      display: flex;
+      gap: 30px;
+      margin: 20px 0;
+      padding: 10px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .stats div {
+      text-align: center;
+    }
+
+    .stats div p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .stats div strong {
+      font-size: 20px;
+      color: #222;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .actions a button {
+      padding: 10px 20px;
+      background: #4c6ef5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .actions a.logout-btn button {
+      background: #e63946;
+    }
+
+    .blog-list {
+      margin-top: 30px;
+    }
+
+    .blog-list h3 {
+      margin-bottom: 15px;
+    }
+
+    .blog-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .blog-list ul li {
+      margin-bottom: 10px;
+    }
+
+    .blog-list ul li a {
+      color: #4c6ef5;
+      text-decoration: none;
+    }
+
+    .form-section {
+      margin-top: 40px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .form-section h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .form-section form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-section input[type="text"],
+    .form-section input[type="password"],
+    .form-section input[type="file"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .form-section button {
+      padding: 10px;
+      background-color: #4c6ef5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      width: fit-content;
+    }
+
+    .form-section button:hover {
+      background-color: #3b5bdb;
+    }
+
+    .flash-message {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: white;
+  z-index: 9999;
+  opacity: 0;
+  animation: slide-in 0.5s forwards, fade-out 0.5s forwards 3.5s;
+}
+
+.flash-message.success {
+  background-color: #38b000;
+}
+
+.flash-message.error {
+  background-color: #e63946;
+}
+
+@keyframes slide-in {
+  to {
+    right: 20px;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    right: -400px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <%- include("partials/header.ejs") %>
+
+  <% if (successMessage) { %>
+  <div class="flash-message success"><%= successMessage %></div>
+<% } %>
+
+<% if (errorMessage) { %>
+  <div class="flash-message error"><%= errorMessage %></div>
+<% } %>
+
+  <div class="profile-container">
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+      <div class="profile-picture">
+        <% if(profile) { %>
+          <img src="<%= profile %>" alt="Profile Picture">
+        <% } else { %>
+          <img src="https://image.lexica.art/full_jpg/8f87cbeb-233e-42b7-9822-241444d591b1">
+        <% } %>
+      </div>
+      <div>
+        <h2><%= user.username %></h2>
+        <p><i class="fas fa-envelope"></i> <%= user.email %></p>
+        <p><i class="fas fa-calendar-alt"></i> Joined on: <%= user.createdAt.toDateString() %></p>
+      </div>
+    </div>
+
+    <!-- BLOG STATS -->
+    <div class="stats">
+      <div><strong><%= posts.length %></strong><p>Total Blogs</p></div>
+      <div><strong><%= posts.length > 0 ? posts[posts.length - 1].title : 'N/A' %></strong><p>Last Blog</p></div>
+    </div>
+
+    <div class="actions">
+      <a href="/create"><button><i class="fas fa-pen"></i> Create New Blog</button></a>
+      <a href="/logout" class="logout-btn"><button><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+    </div>
+
+    <!-- YOUR BLOGS -->
+    <div class="blog-list">
+      <h3>Your Blogs</h3>
+      <% if(posts.length === 0) { %>
+        <p>No blogs posted yet.</p>
+      <% } else { %>
+        <ul>
+          <% posts.forEach(post => { %>
+            <li style="display: flex; justify-content: space-between; align-items: center;">
+              <div><a href="/<%= post.slug %>"><i class="fas fa-file-alt"></i> <%= post.title %></a></div>
+              <div>
+                <a href="/edit/<%= post._id %>"><i class="fas fa-edit" style="color: #4c6ef5;"></i></a>
+                <form action="/delete/<%= post._id %>" method="POST" style="display: inline;">
+                  <button type="submit" style="border: none; background: transparent; cursor: pointer;">
+                    <i class="fas fa-trash" style="color: #e63946;"></i>
+                  </button>
+                </form>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+
+    <!-- UPDATE PROFILE PIC -->
+    <div class="form-section">
+      <h3>Update Profile Picture</h3>
+      <form action="/profile/update-picture" method="POST" enctype="multipart/form-data">
+        <input type="file" name="profilepic" accept="image/*" required>
+        <button type="submit">Update Picture</button>
+      </form>
+    </div>
+
+    <!-- CHANGE USERNAME -->
+    <div class="form-section">
+      <h3>Change Username</h3>
+      <form action="/profile/update-username" method="POST">
+        <input type="text" name="newUsername" placeholder="Enter new username" required>
+        <button type="submit">Change Username</button>
+      </form>
+    </div>
+
+    <!-- CHANGE PASSWORD -->
+    <div class="form-section">
+      <h3>Change Password</h3>
+      <form action="/profile/change-password" method="POST">
+        <input type="password" name="currentPassword" placeholder="Current Password" required>
+        <input type="password" name="newPassword" placeholder="New Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm New Password" required>
+        <button type="submit">Change Password</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include("partials/footer.ejs") %>
+</body>
+</html>

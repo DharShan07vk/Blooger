@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blooger - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href = "/static/style.css">
+</head>
+<body>
+    <% const name = username %>
+    <%- include("partials/header.ejs")  %>
+    <!-- Main Content -->
+    <main>
+        <% if (locals.errormsg) { %>
+        <div class="error-msg">
+            <strong><%= errormsg %></strong>
+        </div>
+        <% } %>
+
+        <% if (locals.successmsg) { %>
+        <div class="success-msg">
+            <strong><%= successmsg %></strong>
+        </div>
+        <% } %>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Welcome to Blooger</h1>
+                <p>Your place to share and discover amazing stories, ideas, and perspectives from a diverse community of writers.</p>
+                <a href="/create" class="btn">Write a Blog</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2>Why Choose Blooger?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h3>Read & Explore</h3>
+                        <p>Discover thousands of blogs on various topics from technology to lifestyle.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3>Create & Manage</h3>
+                        <p>Write and publish your own stories with our easy-to-use editor.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Engage & Discuss</h3>
+                        <p>Connect with readers and other writers through comments and discussions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3>Personal Profile</h3>
+                        <p>Build your own space to showcase your work and connect with followers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- Footer -->
+    <%- include("partials/footer.ejs") %>
+
+</body>
+</html>

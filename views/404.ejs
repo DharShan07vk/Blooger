@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        .cartoon-ghost {
+            width: 180px;
+            margin: 0 auto 20px;
+            animation: float 2.5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0);}
+            50% { transform: translateY(-20px);}
+        }
+        .eyes {
+            animation: blink 4s infinite;
+            transform-origin: center;
+        }
+        @keyframes blink {
+            0%, 97%, 100% { opacity: 1;}
+            98%, 99% { opacity: 0;}
+        }
+        .icon {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            animation: spin 3s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0);}
+            100% { transform: rotate(360deg);}
+        }
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            color: #6366f1;
+            letter-spacing: 2px;
+        }
+        p {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin: 10px 0 30px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 28px;
+            background: #6366f1;
+            color: #fff;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px #6366f133;
+        }
+        a:hover {
+            background: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cartoon Ghost SVG -->
+        <svg class="cartoon-ghost" viewBox="0 0 200 200">
+            <ellipse cx="100" cy="110" rx="70" ry="80" fill="#fff" stroke="#c7d2fe" stroke-width="4"/>
+            <ellipse class="eyes" cx="75" cy="110" rx="10" ry="14" fill="#6366f1"/>
+            <ellipse class="eyes" cx="125" cy="110" rx="10" ry="14" fill="#6366f1"/>
+            <ellipse cx="100" cy="145" rx="18" ry="8" fill="#c7d2fe" opacity="0.4"/>
+            <path d="M40 180 Q60 170 80 180 Q100 190 120 180 Q140 170 160 180" fill="#fff" stroke="#c7d2fe" stroke-width="4"/>
+        </svg>
+        <div>
+            <span class="icon">👻</span>
+            <span class="icon">🚀</span>
+            <span class="icon">🛸</span>
+            <span class="icon">🤖</span>
+        </div>
+        <h1>404</h1>
+        <p>Oops! The page you’re looking for has vanished into thin air.</p>
+        <a href="/">Go Home</a>
+    </div>
+</body>
+</html>

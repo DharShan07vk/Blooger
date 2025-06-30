@@ -1,0 +1,23 @@
+<header>
+        <div class="container">
+            <nav>
+                <a class="logo" href="/">Blooger</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog">Blogs</a></li>
+                    <li><a href="/create">Create Post</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    
+                        <% if (username) { %>
+                         <li><a href="/logout">Sign Out</a></li>
+                         <a>Welcome, <%= username %>!</a>
+                         
+                        <% } else { %>
+                             <a href="/login">Login</a>
+                             <li><a href="/register">Register</a></li>
+                        <% } %>
+
+                </ul>
+            </nav>
+        </div>
+    </header>

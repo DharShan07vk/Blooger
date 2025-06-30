@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Blogs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --primary: #4f46e5;
+            --accent: #6366f1;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    
+         .blog-page {
+            padding: 2rem 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-header {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .blogs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            margin : auto;
+            max-width: 1200px;
+            padding: 2rem 1rem;
+        }
+
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            min-height: 260px;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .author {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-snippet {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .read-btn:hover {
+            background: var(--primary);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh; /* or 100vh if you want it in full screen */
+            text-align: center;
+            gap: 1.2rem;
+        }
+
+        .login-message {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .login-btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border: none;
+            border-radius: 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary);
+        }
+
+
+        @media (max-width: 600px) {
+            .header {
+                font-size: 2rem;
+            }
+
+            .read-btn, .login-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style> 
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <div class="blog-page">
+        <div class="blog-header">
+            📝 Explore Fun Blogs!
+        </div>
+    </div>
+    
+
+    <div class="blogs-container">
+        <% if(islogin) { %>
+            <% if(blog.length === 0) { %>
+                <p class="login-message"><strong>Currently No Blogs Available....</strong></p>
+            <% } else { %>
+                <% for(let i = 0; i < blog.length; i++) {
+                    const curblog = blog[i]; %>
+                    <div class="blog-card">
+                        <div class="title"><%= curblog.title %></div>
+                        <div class="author">By <%= curblog.author %></div>
+                        <div class="blog-snippet">
+                            <%= curblog.content.length > 100 ? curblog.content.substring(0, 70) + '......' : curblog.content %>
+                        </div>
+                        <a href="/<%= curblog.slug %>">
+                            <button class="read-btn">
+                                Read Blog 📖
+                            </button>
+                        </a>
+                    </div>
+                <% } %>
+            <% } %>
+        <% } else { %>
+            <div class="login-wrapper">
+                <p class="login-message"><strong>You must be logged in to view blog posts.</strong></p>
+                <a href="/login"><button class="login-btn">Login Now</button></a>
+            </div>
+        <% } %>
+    </div>
+    
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>
