@@ -4,6 +4,7 @@ import multer  from 'multer'
 import session  from 'express-session'
 import { postdb , userdb } from './config.js';
 import flash from 'connect-flash'
+import cors from 'cors'
 
 
 dotenv.config()
@@ -14,6 +15,11 @@ let updatemsg = ""
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
+const corsConfig = {
+    origin : "*",
+    Credential : true,
+    methods : ["GET", "POST","PUT","DELETE"]
+};
 
 const storage = multer.memoryStorage(); //Directly Storing into Database
  
@@ -50,6 +56,7 @@ app.use(session({
     }
 }))
 
+app.use(cors)
 app.use(flash())
 
 function getSlug(title){
