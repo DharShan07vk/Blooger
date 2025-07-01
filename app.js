@@ -56,7 +56,7 @@ app.use(session({
     }
 }))
 
-app.use(cors)
+app.use(cors(corsConfig))
 app.use(flash())
 
 function getSlug(title){
