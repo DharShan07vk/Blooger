@@ -5,16 +5,20 @@ import session  from 'express-session'
 import { postdb , userdb } from './config.js';
 import flash from 'connect-flash'
 import cors from 'cors'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 dotenv.config()
 const app = express()
 const port = 3000
 let loginMsg = ""
-let updatemsg = ""
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.set('views', path.join(__dirname, 'views'));
 const corsConfig = {
     origin : "*",
     Credential : true,
