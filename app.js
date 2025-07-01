@@ -40,12 +40,6 @@ const upload = multer({
 });
 
 
-
-app.listen(port,()=>{
-    console.log("Listening on 3000")
-    console.log("http://localhost:3000/")
-})
-
 app.use(session({
     secret : process.env.Session_Secret,
     resave : true,
@@ -335,3 +329,5 @@ app.post("/profile/change-password", async (req,res)=>{
 app.use((req, res) => {
   res.status(404).render('404'); // Assumes 404.ejs is in the "views" folder
 });
+
+export default app;
