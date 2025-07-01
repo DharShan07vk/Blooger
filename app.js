@@ -9,7 +9,7 @@ import cors from 'cors'
 
 dotenv.config()
 const app = express()
-const port = 3000
+const port = process.env.port || 3000
 let loginMsg = ""
 let updatemsg = ""
 app.use(express.static("public"))
@@ -39,6 +39,12 @@ const upload = multer({
     }
 });
 
+
+
+app.listen(port,()=>{
+    console.log("Listening on 3000")
+    console.log("http://localhost:3000/")
+})
 
 app.use(session({
     secret : process.env.Session_Secret,
@@ -329,5 +335,3 @@ app.post("/profile/change-password", async (req,res)=>{
 app.use((req, res) => {
   res.status(404).render('404'); // Assumes 404.ejs is in the "views" folder
 });
-
-export default app;
