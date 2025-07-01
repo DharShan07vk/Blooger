@@ -13,12 +13,16 @@ dotenv.config()
 const app = express()
 const port = 3000
 let loginMsg = ""
-app.use(express.static("public"))
+//Local Deployment or any other deployment (Like render)
+// app.use(express.static("public"))
+
+//Vercel Deployment
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.set('views', path.join(__dirname, 'views'));
+
 const corsConfig = {
     origin : "*",
     Credential : true,
