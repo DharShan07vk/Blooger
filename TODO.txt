@@ -1,6 +1,6 @@
 //Today Task 
 1. create user profile picture  --- Finished
-2. update username
+2. update username 
 3. change forgot password
 4. Contact Us
 
