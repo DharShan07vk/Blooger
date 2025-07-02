@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import multer  from 'multer'
 import session  from 'express-session'
-import { postdb , userdb } from './config.js';
+import {connectDB ,  postdb , userdb } from './config.js';
 import flash from 'connect-flash'
 import cors from 'cors'
 import path from 'path';
@@ -32,7 +32,7 @@ const corsConfig = {
 };
 
 const storage = multer.memoryStorage(); //Directly Storing into Database
- 
+  
 // Upload Used in post method in the profile/update
 //Restrict other files types
 const upload = multer({
@@ -49,12 +49,15 @@ const upload = multer({
     }
 });
 
+connectDB();
+
+app.listen(port, () => {
+  console.log("Listening on 3000");
+  console.log("http://localhost:3000/");
+});
 
 
-app.listen(port,()=>{
-    console.log("Listening on 3000")
-    console.log("http://localhost:3000/")
-})
+
 
 app.use(session({
     secret : process.env.Session_Secret,
