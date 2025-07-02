@@ -224,7 +224,7 @@ app.post("/post",async(req,res)=>{
 })
 
 app.get("/:slug",async(req,res)=>{
-    if(!req.session.username){return res.redirect('/')}
+    
     const crtSlug = req.params.slug;
     const post = await postdb.findOne({slug : crtSlug});
     if(!post){
