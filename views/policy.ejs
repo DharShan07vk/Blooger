@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blooger - Privacy Policy & Terms of Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #7209b7;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, rgba(114, 9, 183, 0.03) 90%);
+            z-index: -1;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            transform: rotate(30deg);
+            animation: pulse 12s infinite linear;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: -40px auto 60px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 25px 20px 15px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        nav button {
+            background: var(--gray);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        nav button i {
+            font-size: 1.1rem;
+        }
+        
+        nav button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(67, 97, 238, 0.2);
+            background: var(--primary);
+            color: white;
+        }
+        
+        nav button.active {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        section {
+            display: none;
+            padding: 0 40px 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin: 25px 0 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        section h3 {
+            color: var(--secondary);
+            margin: 28px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        section p, section li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: #444;
+        }
+        
+        section ul {
+            margin-left: 1.8em;
+            margin-bottom: 25px;
+        }
+        
+        section li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        section li::before {
+            content: "•";
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -4px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(to right, rgba(67, 97, 238, 0.05), rgba(114, 9, 183, 0.03));
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            transition: var(--transition);
+        }
+        
+        .highlight-box:hover {
+            transform: translateX(5px);
+            box-shadow: 5px 0 15px rgba(67, 97, 238, 0.1);
+        }
+        
+        .faq {
+            margin-top: 40px;
+            padding: 40px;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0.7), rgba(233, 236, 239, 0.4));
+            border-radius: 15px;
+        }
+        
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .faq-item h3 {
+            margin: 0;
+            padding: 20px 60px 20px 25px;
+            cursor: pointer;
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .faq-item h3:hover {
+            color: var(--primary);
+        }
+        
+        .faq-item h3::after {
+            content: "\f107";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: var(--transition);
+        }
+        
+        .faq-item.open h3::after {
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--primary);
+        }
+        
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 0 25px;
+            background: rgba(248, 249, 250, 0.6);
+        }
+        
+        .faq-item.open .faq-content {
+            max-height: 500px;
+            padding: 0 25px 25px;
+        }
+        
+        .contact-bar {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            margin-top: 30px;
+            border-radius: 12px;
+        }
+        
+        .contact-bar p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+            background: var(--light);
+            color: var(--secondary);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--dark);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: rotate(30deg) scale(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: rotate(30deg) scale(1.2);
+                opacity: 0.4;
+            }
+            100% {
+                transform: rotate(30deg) scale(0.8);
+                opacity: 0.7;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 1.8rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px 15px 10px;
+            }
+            
+            nav button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            section {
+                padding: 0 20px 30px;
+            }
+            
+            .faq {
+                padding: 25px 20px;
+            }
+            
+            .faq-item h3 {
+                padding: 18px 50px 18px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Blooger Policies</h1>
+        <p>Transparency and trust are at the core of our platform. Understand how we protect your data and outline our service terms.</p>
+    </div>
+    
+    <div class="container">
+        <nav>
+            <button id="privacyBtn" class="active" onclick="showSection('privacy')">
+                <i class="fas fa-shield-alt"></i> Privacy Policy
+            </button>
+            <button id="termsBtn" onclick="showSection('terms')">
+                <i class="fas fa-file-contract"></i> Terms of Service
+            </button>
+        </nav>
+
+        <section id="privacy" class="active">
+            <h2>Privacy Policy</h2>
+            <p>At Blooger, we prioritize your privacy and are committed to protecting your personal information. This policy details how we collect, use, and safeguard your data.</p>
+            
+            <div class="highlight-box">
+                <p><i class="fas fa-info-circle"></i> We never sell your personal information to third parties. Your data is used solely to enhance your experience on Blooger.</p>
+            </div>
+            
+            <h3>Information We Collect</h3>
+            <ul>
+                <li><strong>Account Data:</strong> When you register, we collect your name, email address, and profile information.</li>
+                <li><strong>Content:</strong> Any posts, comments, images, or other content you create or upload to our platform.</li>
+                <li><strong>Usage Data:</strong> Information about how you interact with Blooger, including pages visited, time spent, and features used.</li>
+                <li><strong>Technical Data:</strong> Device information, IP address, browser type, and operating system for security and optimization.</li>
+                <li><strong>Cookies:</strong> We use cookies for authentication, preferences, and analytics to improve our services.</li>
+            </ul>
+            
+            <h3>How We Use Your Information</h3>
+            <ul>
+                <li>To provide, maintain, and improve our services.</li>
+                <li>To personalize your experience and content recommendations.</li>
+                <li>To communicate important updates, security alerts, and support messages.</li>
+                <li>To detect and prevent fraud, abuse, and security issues.</li>
+                <li>To analyze usage patterns and enhance platform performance.</li>
+            </ul>
+            
+            <h3>Sharing & Disclosure</h3>
+            <ul>
+                <li>We do <strong>not</strong> sell your personal data to advertisers or third parties.</li>
+                <li>We may share data with trusted service providers (e.g., hosting, analytics) under strict confidentiality agreements.</li>
+                <li>We may disclose information when required by law or to protect our rights and users.</li>
+                <li>Aggregated, non-personal data may be shared for research or marketing purposes.</li>
+            </ul>
+            
+            <h3>Your Choices & Rights</h3>
+            <ul>
+                <li>Update or delete your account information at any time through settings.</li>
+                <li>Adjust cookie preferences in your browser settings.</li>
+                <li>Request access to or correction of your personal data.</li>
+                <li>Opt-out of marketing communications while retaining essential service messages.</li>
+            </ul>
+            
+            <h3>Security Measures</h3>
+            <p>We implement industry-standard security protocols including encryption, firewalls, and regular security audits. While we strive to protect your data, no online platform can guarantee absolute security.</p>
+            
+            <h3>Children's Privacy</h3>
+            <p>Blooger is not intended for users under 13. We do not knowingly collect personal information from children. If we become aware of such collection, we will take steps to delete it.</p>
+            
+            <h3>Policy Updates</h3>
+            <p>We may update this policy periodically. Significant changes will be communicated via email or prominent website notice. Continued use of Blooger constitutes acceptance of the updated policy.</p>
+            
+            <div class="contact-bar">
+                <p>Have questions about your privacy?</p>
+                <a href="mailto:support@blooger.com" class="contact-btn">
+                    <i class="fas fa-envelope"></i> Contact Our Support Team
+                </a>
+            </div>
+        </section>
+
+        <section id="terms">
+            <h2>Terms of Service</h2>
+            <p>Welcome to Blooger! By using our platform, you agree to these terms. Please read them carefully before creating content or engaging with our community.</p>
+            
+            <div class="highlight-box">
+                <p><i class="fas fa-exclamation-circle"></i> You retain ownership of your content, but grant Blooger a license to display and distribute it on our platform.</p>
+            </div>
+            
+            <h3>Account Responsibilities</h3>
+            <ul>
+                <li>You must be at least 13 years old to create an account.</li>
+                <li>You are responsible for all activities under your account and maintaining password security.</li>
+                <li>Notify us immediately of any unauthorized account use or security breaches.</li>
+                <li>Provide accurate information and keep your profile updated.</li>
+            </ul>
+            
+            <h3>Acceptable Use</h3>
+            <ul>
+                <li>Do not post unlawful, harmful, threatening, abusive, harassing, or discriminatory content.</li>
+                <li>Respect intellectual property rights - only post content you have rights to.</li>
+                <li>No spamming, phishing, malware distribution, or other malicious activities.</li>
+                <li>Do not impersonate others or misrepresent your identity.</li>
+                <li>Respect community guidelines and engage in constructive discussions.</li>
+            </ul>
+            
+            <h3>Content Ownership & Licensing</h3>
+            <ul>
+                <li>You retain all ownership rights to your original content.</li>
+                <li>By posting, you grant Blooger a worldwide, non-exclusive, royalty-free license to use, display, and distribute your content on our platform.</li>
+                <li>You are responsible for ensuring you have necessary rights for any content you post.</li>
+                <li>We may remove content that violates these terms without prior notice.</li>
+            </ul>
+            
+            <h3>Termination & Suspension</h3>
+            <ul>
+                <li>We reserve the right to suspend or terminate accounts that violate these terms.</li>
+                <li>You may delete your account at any time through account settings.</li>
+                <li>Upon termination, your content may be removed, though backups may persist for a limited time.</li>
+            </ul>
+            
+            <h3>Disclaimers & Limitations</h3>
+            <ul>
+                <li>Blooger is provided "as is" without warranties of any kind.</li>
+                <li>We are not responsible for user-generated content or third-party links.</li>
+                <li>We do not guarantee uninterrupted or error-free service.</li>
+                <li>Our liability is limited to the maximum extent permitted by law.</li>
+            </ul>
+            
+            <h3>Changes to Terms</h3>
+            <p>We may update these terms periodically. Significant changes will be announced through our platform. Continued use after changes constitutes acceptance of the new terms.</p>
+            
+            <div class="contact-bar">
+                <p>Need clarification on our terms?</p>
+                <a href="mailto:support@blooger.com" class="contact-btn">
+                    <i class="fas fa-headset"></i> Get in Touch
+                </a>
+            </div>
+        </section>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3 onclick="toggleFaq(this)">How do I delete my Blooger account?</h3>
+                <div class="faq-content">
+                    <p>You can delete your account at any time:</p>
+                    <ol>
+                        <li>Go to your Account Settings</li>
+                        <li>Select "Account Management"</li>
+                        <li>Choose "Delete Account"</li>
+                        <li>Confirm your decision</li>
+                    </ol>
+                    <p>Account deletion is permanent and removes all your content. Contact support if you need assistance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 onclick="toggleFaq(this)">Can I control who sees my posts?</h3>
+                <div class="faq-content">
+                    <p>Yes, Blooger offers several privacy options:</p>
+                    <ul>
+                        <li><strong>Public:</strong> Visible to anyone, including search engines</li>
+                        <li><strong>Followers Only:</strong> Visible to your approved followers</li>
+                        <li><strong>Private:</strong> Only visible to you</li>
+                    </ul>
+                    <p>You can adjust these settings when creating or editing any post. You can also change default privacy settings in your account preferences.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 onclick="toggleFaq(this)">How does Blooger use cookies?</h3>
+                <div class="faq-content">
+                    <p>We use cookies to enhance your experience:</p>
+                    <ul>
+                        <li><strong>Authentication:</strong> To keep you logged in during your session</li>
+                        <li><strong>Preferences:</strong> To remember your language, theme, and other settings</li>
+                        <li><strong>Analytics:</strong> To understand how users interact with our platform</li>
+                        <li><strong>Security:</strong> To detect and prevent fraudulent activity</li>
+                    </ul>
+                    <p>You can manage cookie preferences in your browser settings. Note that disabling cookies may affect some Blooger features.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 onclick="toggleFaq(this)">How can I report inappropriate content?</h3>
+                <div class="faq-content">
+                    <p>If you encounter content that violates our guidelines:</p>
+                    <ol>
+                        <li>Click the "•••" menu on the post</li>
+                        <li>Select "Report Content"</li>
+                        <li>Choose the reason for reporting</li>
+                        <li>Add any additional context</li>
+                        <li>Submit your report</li>
+                    </ol>
+                    <p>Our moderation team reviews all reports within 24 hours. For urgent issues, contact support@blooger.com.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 onclick="toggleFaq(this)">Can I export my data from Blooger?</h3>
+                <div class="faq-content">
+                    <p>Yes, you can export your data at any time:</p>
+                    <ul>
+                        <li>Go to Account Settings > Privacy & Data</li>
+                        <li>Select "Request Data Export"</li>
+                        <li>We'll compile your data (posts, comments, profile info) into a downloadable file</li>
+                        <li>You'll receive an email when your export is ready (usually within 24 hours)</li>
+                    </ul>
+                    <p>Exports remain available for download for 7 days. You can request a new export at any time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="footer">
+        <p>© 2023 Blooger Inc. All rights reserved. | Making content creation simple and secure</p>
+    </div>
+    
+    <script>
+        function showSection(section) {
+            document.getElementById('privacy').classList.remove('active');
+            document.getElementById('terms').classList.remove('active');
+            document.getElementById(section).classList.add('active');
+            document.getElementById('privacyBtn').classList.remove('active');
+            document.getElementById('termsBtn').classList.remove('active');
+            if(section === 'privacy') {
+                document.getElementById('privacyBtn').classList.add('active');
+            } else {
+                document.getElementById('termsBtn').classList.add('active');
+            }
+            
+        }
+        
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            item.classList.toggle('open');
+        }
+        
+        
+        
+        // Add animation to elements when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('section h3, .highlight-box, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
