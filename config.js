@@ -2,13 +2,19 @@ import mongoose  from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
-const database = mongoose.connect(process.env.MongoDB_Connection_String)
-// Check 
-database.then(()=>{
-    console.log("Database Connected")
-}).catch((err)=>{
-    console.log("Error " + err.message)
-})
+
+const database = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("❌ MongoDB Connection Failed", err.message);
+    process.exit(1); // stop app if DB connection fails
+  }
+};
 
 //Login Schema
 const userdata = new mongoose.Schema({
