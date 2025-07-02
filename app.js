@@ -350,6 +350,17 @@ app.post("/profile/change-password", async (req,res)=>{
     }
 })
 
+
+app.get('/test-db', async (req, res) => {
+  try {
+    const count = await userdb.countDocuments();
+    res.send(`✅ MongoDB connected! Found ${count} users.`);
+  } catch (err) {
+    res.status(500).send('❌ DB Error: ' + err.message);
+  }
+});
+
+
 //404 Page Not Found By using middleWare
 app.use((req, res) => {
   res.status(404).render('404'); // Assumes 404.ejs is in the "views" folder
