@@ -7,6 +7,7 @@ import flash from 'connect-flash'
 import cors from 'cors'
 import path from 'path';
 import { fileURLToPath } from 'url';
+import favicon from 'serve-favicon'
 
 
 dotenv.config()
@@ -18,6 +19,8 @@ app.set('view engine', 'ejs')
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.set('views', path.join(__dirname, 'views'));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 //For Vercel Deployment
 app.use(express.static(path.join(__dirname , 'public')))
 //For Local Deployment or any other like render
@@ -158,7 +161,6 @@ app.post("/login", async (req,res)=>{
         res.redirect("/login")
         loginMsg = `Account? Ghosted. Like your ex 👻...
         No Account Found`
-        console.log("No Account Found")
     }
     else{
         if(password == isuser.password && username === isuser.username){
@@ -225,7 +227,6 @@ app.get("/:slug",async(req,res)=>{
 app.get("/edit/:id", async(req,res)=>{
     try{
     const postId = req.params.id;
-    console.log(postId)
     const post = await postdb.findById({_id : postId})
     if(post && req.session.username === post.author){
         return res.render("edit.ejs", {blog  : post})

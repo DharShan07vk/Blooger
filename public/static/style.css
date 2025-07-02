@@ -20,7 +20,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--light);
+            background: linear-gradient(135deg, #6c63ff, #6a4ea6);
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;

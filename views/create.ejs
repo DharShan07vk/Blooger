@@ -1,129 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Create New Blog Post - Blooger</title>
-    <link rel = "stylesheet" href = "static/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    <style>
-        /* Container for the entire form */
-.form-container {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-}
+  <meta charset="UTF-8" />
+  <title>Create New Blog Post - Blooger</title>
+  <link rel="stylesheet" href="static/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    
 
-/* Header */
-.form-container h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #333;
-}
+    main.form-container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      color: #333;
+    }
 
-/* Form styling */
-.blog-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+    .form-container h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #fff;
+      font-family: "Playfair Display", serif;
+    }
 
-/* Individual form group */
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
+    .blog-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-/* Label */
-.form-group label {
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #444;
-}
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-/* Input fields */
-.form-group input,
-.form-group textarea {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
+    .form-group label {
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
 
-/* Focus state for inputs */
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-    outline: none;
-}
+    .form-group input,
+    .form-group textarea {
+      padding: 12px 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease-in-out;
+    }
 
-/* Submit button */
-.form-group button {
-    padding: 12px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+    }
 
-.form-group button:hover {
-    background-color: #0056b3;
-}
+    .form-group button {
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-/* Error message */
-.post-error-msg {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #ffe3e3;
-    border-left: 4px solid #ff4c4c;
-    color: #c0392b;
-    font-weight: 500;
-    border-radius: 5px;
-    font-size: 0.95rem;
-}
+    .form-group button:hover {
+      background-color: #0056b3;
+    }
 
-    </style>
+    .post-error-msg {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ffd6d6;
+      border-left: 5px solid #e74c3c;
+      color: #c0392b;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
 </head>
 <body>
-    <%- include("partials/header.ejs") %>
-    <main class="form-container">
-        <h1>Create a New Blog Post</h1>
-        <form action="/post" method="POST" class="blog-form">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" placeholder="Blog title" required>
-            </div>
+  <%- include("partials/header.ejs") %>
+  
+  <main class="form-container">
+    <h1><i class="fas fa-pen-nib"></i> Create a New Blog Post</h1>
+    <form action="/post" method="POST" class="blog-form">
+      <div class="form-group">
+        <label for="title"><i class="fas fa-heading"></i> Title</label>
+        <input type="text" id="title" name="title" placeholder="Blog title" required />
+      </div>
 
-            <div class="form-group">
-                <label for="content">Blog Content</label>
-                <textarea id="content" name="content" rows="10" placeholder="Write your blog here..." required></textarea>
-            </div>
+      <div class="form-group">
+        <label for="content"><i class="fas fa-align-left"></i> Blog Content</label>
+        <textarea id="content" name="content" rows="10" placeholder="Write your blog here..." required></textarea>
+      </div>
 
-            <div class="form-group">
-                <button type="submit">Create Post</button>
-            </div>
-        </form>
-        <% if (locals.msg) { %>
-            <div class="post-error-msg">
-                <%= msg %>
-            </div>
-        <% } %>
+      <div class="form-group">
+        <button type="submit"><i class="fas fa-upload"></i> Create Post</button>
+      </div>
+    </form>
 
-    </main>
+    <% if (locals.msg) { %>
+      <div class="post-error-msg">
+        <%= msg %>
+      </div>
+    <% } %>
+  </main>
 
-
-    <%- include("partials/footer.ejs") %>
+  <%- include("partials/footer.ejs") %>
 </body>
 </html>
