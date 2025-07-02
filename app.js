@@ -129,6 +129,17 @@ app.get("/register",(req,res)=>{
     res.render("register")
 })
 
+app.get("/about", (req,res)=>{
+    res.render("about.ejs")
+})
+
+app.get("/contact",(req,res)=>{
+    res.render("contact.ejs")
+})
+
+app.get("/policy", (req,res)=>{
+    res.render("policy.ejs");
+})
 app.get("/profile", async(req,res)=>{
     try{
     if(req.session.username){
