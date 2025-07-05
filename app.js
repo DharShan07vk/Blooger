@@ -87,6 +87,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/',(req,res)=>{
+    console.log(process.env.mode)
     res.render("home.ejs")   
 })
 
@@ -184,7 +185,6 @@ app.post("/login", async (req,res)=>{
     else{
         if(password == isuser.password && username === isuser.username){
         req.session.username = isuser.username;
-        console.log(process.env.mode)
         console.log(req.session.username)
         res.redirect("/")
         }
