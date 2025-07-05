@@ -64,7 +64,7 @@ app.use(session({
     resave : true,
     saveUninitialized : true,
     cookie : {
-        secure:process.env.mode === 'production',
+        secure:process.env.mode == 'production',
         maxAge : 1000 * 60 * 60
     }
 }))
