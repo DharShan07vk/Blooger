@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import multer  from 'multer'
 import session  from 'express-session'
+import MongoStore from 'connect-mongo'
 import {connectDB ,  postdb , userdb } from './config.js';
 import flash from 'connect-flash'
 import cors from 'cors'
@@ -57,17 +58,21 @@ app.listen(port, () => {
 });
 
 
-
-
 app.use(session({
-    secret : process.env.Session_Secret,
-    resave : true,
-    saveUninitialized : true,
-    cookie : {
-        secure:process.env.mode == 'production',
-        maxAge : 1000 * 60 * 60
-    }
+    secret: process.env.Session_Secret,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MongoDB_Connection_String,
+        collectionName: 'sessions',
+    }),
+    cookie: {
+        secure: process.env.mode === 'production', // send over HTTPS only in prod
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60, // 1 hour
+    },
 }))
+
 
 app.use(cors(corsConfig))
 app.use(flash())
