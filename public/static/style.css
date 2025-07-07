@@ -453,7 +453,8 @@ footer {
     .nav-links {
         position: absolute;
         top: 100%;
-        width: 90%;
+        right : 50px;
+        left : 50px;
         background: var(--white);
         flex-direction: column;
         padding: 20px;
@@ -507,7 +508,7 @@ footer {
 
 @media (max-width: 576px) {
     nav {
-        flex-direction: column;
+        flex-direction: row;
         gap: 20px;
     }
 
