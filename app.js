@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import multer  from 'multer'
+import http from 'http'
 import session  from 'express-session'
 import {connectDB ,  postdb , userdb } from './config.js';
 import flash from 'connect-flash'
@@ -51,12 +52,11 @@ const upload = multer({
 
 connectDB();
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log("Listening on 3000");
   console.log("http://localhost:3000/");
 });
-
-
+  
 app.use(session({
     secret: process.env.Session_Secret,
     resave: false,
