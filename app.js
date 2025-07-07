@@ -1,7 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import multer  from 'multer'
-import http from 'http'
 import session  from 'express-session'
 import {connectDB ,  postdb , userdb } from './config.js';
 import flash from 'connect-flash'
