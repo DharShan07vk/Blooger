@@ -108,13 +108,17 @@ app.get('/blog',async(req,res)=>{
 app.post("/:slug/comment", async (req,res)=>{
     const comment = req.body.comment;
     const crtSlug = req.params.slug;
+    let profilePic = null;
     const user = await userdb.findOne({username:req.session.username})
+    if(user.profilePic && user.profilePic.data){
+        profilePic  = `data:${user.profilePic.contentType};base64,${user.profilePic.data.toString('base64')}`
+    }
     await postdb.findOneAndUpdate({slug : crtSlug} , {
         $push : {
             comments:{
                 author : req.session.username, 
                 text : comment,
-                authorPic : `data:${user.profilePic.contentType};base64,${user.profilePic.data.toString('base64')}`
+                authorPic : profilePic
             }
         }
     })
