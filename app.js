@@ -8,6 +8,7 @@ import cors from 'cors'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import favicon from 'serve-favicon'
+import { error } from 'console';
 
 
 dotenv.config()
@@ -104,6 +105,22 @@ app.get('/blog',async(req,res)=>{
     }
 })
 
+app.post("/:slug/comment", async (req,res)=>{
+    const comment = req.body.comment;
+    const crtSlug = req.params.slug;
+    const user = await userdb.findOne({username:req.session.username})
+    await postdb.findOneAndUpdate({slug : crtSlug} , {
+        $push : {
+            comments:{
+                author : req.session.username, 
+                text : comment,
+                authorPic : `data:${user.profilePic.contentType};base64,${user.profilePic.data.toString('base64')}`
+            }
+        }
+    })
+    res.redirect(`/${crtSlug}`)
+})
+
 app.get("/create",(req,res)=>{
     if(!req.session.username){
         return res.render('home', {errormsg : "You must be logged in to create posts :)"})
@@ -152,6 +169,7 @@ app.get("/profile", async(req,res)=>{
         const user = await userdb.findOne({username : req.session.username})
         const post = await postdb.find({author : req.session.username})
         let profilePic = null;
+        req.session.profilePic = user.profilePic;
         if(user.profilePic.data && user.profilePic)
         {
             profilePic = `data:${user.profilePic.contentType};base64,${user.profilePic.data.toString('base64')}`;
@@ -237,7 +255,7 @@ app.get("/:slug",async(req,res)=>{
         res.render("404.ejs")
     }
     else{
-        res.render("post", {post})
+        res.render("post", {post , slug : crtSlug})
     }
 })
 
@@ -290,7 +308,14 @@ app.post("/profile/update-picture", upload.single('profilepic'), async (req, res
                 data : req.file.buffer,
                 contentType : req.file.mimetype
             }
+            const profilePic = `data:${user.profilePic.contentType};base64,${user.profilePic.data.toString('base64')}`;
             await user.save();
+            await postdb.updateMany(
+              { "comments.author": req.session.username },
+              { $set: { "comments.$[elem].authorPic": profilePic } },
+              { arrayFilters: [{ "elem.author": req.session.username }] }
+            );
+
             req.flash('success', 'Profile picture updated successfully!');
             res.redirect("/profile")
         }
@@ -300,6 +325,7 @@ app.post("/profile/update-picture", upload.single('profilepic'), async (req, res
         }
     }
     catch{
+        console.log(error)
         res.render("home", {errormsg : "Something Went Wrong In uploading Profile Picture 😭😭"})
 
     }   
@@ -316,6 +342,11 @@ app.post("/profile/update-username",async(req,res)=>{
                 await userdb.findByIdAndUpdate(user._id , {username : newname})
                 req.session.username = newname;
                 await postdb.updateMany({author : oldname} ,{$set :  {author : newname} })
+                await postdb.updateMany(
+                    {"comments.author" : oldname},
+                    {$set : {"comments.$[elem].author" : newname}},
+                    {arrayFilters  : [{"elem.author"  : oldname}]}
+                )   
                 req.flash('success', 'Username changed successfully!');
                 res.redirect("/profile")
             }

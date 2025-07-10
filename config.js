@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { text } from "express";
 
 dotenv.config();
 
@@ -33,6 +34,16 @@ const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   slug: { type: String, required: true },
+  like : {type : Number , default : 0},
+  comments : [
+    {
+      author : String,
+      text : String,
+      authorPic : String // Base64 profile Url 
+      // looks like 
+      //data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA... (base64 data)
+    }
+  ]
 });
 
 // ✅ Export models

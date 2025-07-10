@@ -1,26 +1,229 @@
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blooger</title>
-    <link rel = "stylesheet" href = "static/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blooger</title>
+  <link rel="stylesheet" href="static/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    .blog-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.6s ease-in;
+  font-family: 'Poppins', sans-serif;
+  color: #1e293b;
+}
+
+.blog-title {
+  font-size: 2.8rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.blog-author {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.blog-author:hover {
+  color: #4f46e5;
+}
+
+.blog-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #374151;
+  margin-bottom: 2.5rem;
+  white-space: pre-line;
+}
+
+/* Like Section */
+.reactions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.like-button {
+  background-color: #4f46e5;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.like-button:hover {
+  background-color: #4338ca;
+}
+
+.like-count {
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.comments-section h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: #1e293b;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.comment-form textarea {
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: 'Poppins', sans-serif;
+}
+
+.comment-form button {
+  align-self: flex-end;
+  background-color: #10b981;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.comment-form button:hover {
+  background-color: #059669;
+}
+
+/* Comment List */
+.comment-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+  background-color: #f9fafb;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+  color: #1f2937;
+}
+
+.comment-text {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+  .comment-form button {
+    width: 100%;
+  }
+  .comment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+  </style>
 </head>
+
 <body>
-    <%- include("partials/header.ejs") %>
-    <section class="blog">
-        <% if(post) {%>
-            <% const {title , author , content , slug }  = post %>
-        
-        <h1 class = "title"><strong><%= title %></strong></h1>
-        <div class="author"><em style="font-size: medium; font-size: 15px;">By <%= author %> </em></div>
-        <br>
-        <p class = "content"><%- content.replace(/\n/g , '<br>')%></p>
-        <%}%>
-    </section>
-    
-    
-    <%- include("partials/footer.ejs") %>
+  <%- include("partials/header.ejs") %>
+
+  <div class="blog-container">
+    <% if(post) { const {title , author , content , slug }  = post; %>
+      <h1 class="blog-title"><strong><%= title %></strong></h1>
+      <div class="blog-author"><em>By <%= author %></em></div>
+      <br />
+      <div class="blog-content"><%- content.replace(/\n/g , '<br>')%></div>
+    <% } %>
+
+  <div class="reactions">
+    <button class="like-button"><i class="fas fa-thumbs-up"></i> Like</button>
+    <span class="like-count">12 Likes</span>
+  </div>
+
+    <div class="comments-section">
+    <h3>Comments</h3>
+    <form action="/<%= post.slug %>/comment" method="POST" class="comment-form">
+      <textarea name="comment" placeholder="Write a comment..." required></textarea>
+      <button type="submit">Post Comment</button>
+    </form>
+
+    <ul class="comment-list">
+        <% if(post.comments.length ==0) {%>
+            <div class="comment-text">No One Commented</div> 
+        <% } else { %>
+      <% post.comments.forEach(c => { %>
+        <li class="comment-item">
+          
+            <img  class = "comment-avatar" src ="<%= c.authorPic %>" alt="">
+          <div class="comment-content">
+            <div class="comment-author"><%= c.author || "Anonymous" %></div>
+            <div class="comment-text"><%= c.text %></div>
+          </div>
+        </li>
+      <% })} %>
+    </ul>
+  </div>
+</div>
+
+  <%- include("partials/footer.ejs") %>
 </body>
-</html>
