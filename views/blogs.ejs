@@ -35,22 +35,79 @@
         .blog-header {
             text-align: center;
             font-size: 2.5rem;
-            color: var(--primary);
+            color: var(--main-bg);
             font-weight: bold;
             margin-bottom: 2rem;
         }
 
-        .blogs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            width: 100%;
-            margin : auto;
-            max-width: 1200px;
-            padding: 2rem 1rem;
-        }
+        /* Wrap both search bar and blogs in a flex container */
+.blogs-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+/* Align search bar to the right */
+.search-bar {
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+
+.search-bar form {
+  display: flex;
+  gap: 0;
+}
+
+.search-bar input {
+  padding: 8px 15px;
+  border: 1px solid var(--light-gray);
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  padding: 8px 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: var(--accent);
+}
+
+/* Responsive: Stack search bar vertically on small screens */
+@media (max-width: 600px) {
+  .search-bar {
+    align-self: stretch;
+  }
+
+  .search-bar form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+    border-radius: 25px;
+  }
+
+  .search-bar button {
+    border-radius: 25px;
+  }
+}
 
         .blog-card {
+            margin-bottom: 20px;
             background: var(--card-bg);
             border-radius: 1.5rem;
             padding: 2rem;
@@ -173,6 +230,13 @@
             <% if(blog.length === 0) { %>
                 <p class="login-message"><strong>Currently No Blogs Available....</strong></p>
             <% } else { %>
+                <!-- Add inside blogs.ejs near the top -->
+                <div class="search-bar">
+                  <form action="/blog" method="GET">
+                    <input type="text" name="query" placeholder="Search blog titles..." required />
+                    <button type="submit">🔍</button>
+                  </form>
+                </div>
                 <% for(let i = 0; i < blog.length; i++) {
                     const curblog = blog[i]; %>
                     <div class="blog-card">

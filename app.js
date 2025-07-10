@@ -85,11 +85,16 @@ app.get('/',(req,res)=>{
 
 app.get('/blog',async(req,res)=>{
     try{
+        let posts = []
         if(req.session.username){
+            if(req.query.query){
+                const regex = new RegExp(req.query.query , 'i')
+                 posts = await postdb.find({title : {$regex : regex}})
+            }else{
         //Fetching Posts One by One from Database
-        const posts = await postdb.find();
-        res.render("blogs.ejs", {blog : posts, islogin : true});  
-        }  
+         posts = await postdb.find();}
+         res.render("blogs.ejs", {blog : posts, islogin : true , query : req.query.query || ""});
+        }   
         else{
             res.render("blogs.ejs", {blog : [] , islogin : false})
         }   
